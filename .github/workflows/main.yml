@@ -1,0 +1,26 @@
+name: Run Unit Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        test -e requirements.txt && echo "requirements.txt found" || echo "requirements.txt not found"
+
+    - name: Run unit tests
+      run: python -m unittest index_test.py
